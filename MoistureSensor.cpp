@@ -2,10 +2,10 @@
 #include "Arduino.h"
 
 MoistureSensor::MoistureSensor(int sensorPin, int vccPin)
-{ 
+{
   _sensorPin = sensorPin;
   _vccPin = vccPin;
-  
+
   pinMode(vccPin, OUTPUT);
   digitalWrite(vccPin, LOW);
 }
