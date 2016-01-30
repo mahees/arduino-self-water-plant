@@ -39,14 +39,10 @@ void takeAndprocessReading() {
     return;
   }
 
-  logger.info("soil dry");
-  logger.info("buzzor toggle");
+  logger.info("soil dry: activating pump");
   buzzor.toggle(msBuzzorBeforeWateringDelay);
-  logger.info("buzzor toggle");
-  logger.info("pump activate");
   waterPump.activate(msWateringActiveDelay);
-  logger.info("pump deactivate");
-  logger.info("waiting to take reading again");
+  logger.info("reading in a few secs");
   delay(msRetryAfterWateringDelay);
   takeAndprocessReading();
 }
