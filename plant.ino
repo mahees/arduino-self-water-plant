@@ -2,13 +2,15 @@
 #include "MoistureSensor.h"
 #include "Motor.h"
 #include "DigitalPin.h"
+#include "Logger.h"
 
 MoistureSensor moistureSensor(A0, 13);
 Motor waterPump(2);
 DigitalPin buzzor(3);
+Logger logger(9600);
 
 void setup() {
-  Serial.begin(9600);
+
 }
 
 void loop() {
@@ -21,23 +23,23 @@ void loop() {
 
 void takeAndprocessReading() {
 
-  Serial.print("taking reading: ");
+  logger.info("taking reading: ");
   int moistureReading = moistureSensor.takeReading();
-  Serial.println(moistureReading);
+  logger.info(moistureReading);
   if (moistureReading < 550)
   {
-    Serial.println("soil moist");
+    logger.info("soil moist");
     return;
   }
 
-  Serial.println("soil dry");
-  Serial.println("buzzor toggle");
+  logger.info("soil dry");
+  logger.info("buzzor toggle");
   buzzor.toggle(100);
-  Serial.println("buzzor toggle");
-  Serial.println("pump activate");
+  logger.info("buzzor toggle");
+  logger.info("pump activate");
   waterPump.activate(2000);
-  Serial.println("pump deactivate");
-  Serial.println("waiting to take reading again");
+  logger.info("pump deactivate");
+  logger.info("waiting to take reading again");
   delay(15000); //15 sec
   takeAndprocessReading();
 }
